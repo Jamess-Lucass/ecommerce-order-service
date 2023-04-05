@@ -10,5 +10,5 @@ type OrderPlaced struct {
 type OrderPlacedItem struct {
 	Name     string
 	Quantity uint
-	Price    string
+	Price    float32
 }

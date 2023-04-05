@@ -113,7 +113,7 @@ func main() {
 				orderItem := models.OrderItem{
 					ID:        primitive.NewObjectID(),
 					CatalogId: item.CatalogId,
-					Price:     fmt.Sprintf("%.2f", item.Price),
+					Price:     item.Price,
 					Quantity:  item.Quantity,
 				}
 				order.Items = append(order.Items, orderItem)

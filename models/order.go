@@ -18,6 +18,6 @@ type Order struct {
 type OrderItem struct {
 	ID        primitive.ObjectID `bson:"_id" json:"id"`
 	CatalogId uuid.UUID          `bson:"catalogId" json:"catalogId"`
-	Price     string             `bson:"price" json:"price"`
+	Price     float32            `bson:"price" json:"price"`
 	Quantity  uint               `bson:"quantity" json:"quantity"`
 }
