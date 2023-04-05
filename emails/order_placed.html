@@ -1,0 +1,11 @@
+<p>Dear {{ .Name }}</p>
+<p>Your order number: {{ .ID }} is being processed.</p>
+<h3>Delivery Information</h3>
+<p style="margin: 0px">Address: {{ .Address }}</p>
+
+<h3>Items</h3>
+{{ with .Items }} {{ range .}}
+<p>Name: {{ .Name }}</p>
+<p>Quantity: {{ .Quantity }}</p>
+<p>Price: £{{ .Price }}</p>
+{{ end }} {{ end }}

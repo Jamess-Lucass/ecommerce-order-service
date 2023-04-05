@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  service:
+    image: ecommerce-order-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-order-service
+    ports:
+      - 1004:8080
+    environment:
+      - JWT_SECRET=DockerTestJWTFakeSecret
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_USERNAME=root
+      - DB_PASSWORD=example
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - EMAIL_SERVICE_BASE_URL=http://host.docker.internal:1005
+      - CATALOG_SERVICE_BASE_URL=http://host.docker.internal:1002
+    depends_on:
+      - mongo
+      - rabbitmq
+    restart: on-failure
+
+  mongo:
+    image: mongo
+    container_name: ecommerce-order-service-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: order
+    ports:
+      - 27017:27017
+    restart: on-failure
+
+  mongo-express:
+    image: mongo-express
+    container_name: ecommerce-order-service-mongo-express
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    ports:
+      - 9000:8081
+    depends_on:
+      - mongo
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: ecommerce-order-service-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: on-failure
