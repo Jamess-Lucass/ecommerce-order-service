@@ -18,6 +18,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/valyala/fasthttp"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -66,6 +67,23 @@ func (s *OrderService) List(ctx *fasthttp.RequestCtx, user *middleware.Claim) ([
 	}
 
 	return orders, nil
+}
+
+func (s *OrderService) Get(ctx *fasthttp.RequestCtx, user *middleware.Claim, id primitive.ObjectID) (*models.Order, error) {
+	filter := bson.D{
+		{Key: "$or", Value: bson.A{
+			bson.D{{Key: "userId", Value: uuid.MustParse(user.Subject)}},
+			bson.D{{Key: "email", Value: user.Email}},
+		}},
+		{Key: "_id", Value: id},
+	}
+
+	var order models.Order
+	if err := s.db.Collection("orders").FindOne(ctx, filter).Decode(&order); err != nil {
+		return nil, err
+	}
+
+	return &order, nil
 }
 
 func (s *OrderService) Create(ctx context.Context, order *models.Order) error {

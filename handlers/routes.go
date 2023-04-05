@@ -21,6 +21,7 @@ func (s *Server) Start() error {
 	}))
 
 	f.Get("/api/v1/orders", middleware.JWT(), s.GetOrders)
+	f.Get("/api/v1/orders/:id", middleware.JWT(), s.GetOrder)
 
 	f.Use(func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"code": fiber.StatusNotFound, "message": "No resource found"})
