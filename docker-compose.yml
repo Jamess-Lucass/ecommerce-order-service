@@ -21,6 +21,7 @@ services:
       - RABBITMQ_PASSWORD=guest
       - EMAIL_SERVICE_BASE_URL=http://host.docker.internal:1005
       - CATALOG_SERVICE_BASE_URL=http://host.docker.internal:1002
+      - USER_SERVICE_BASE_URL=http://host.docker.internal:1001
     depends_on:
       - mongo
       - rabbitmq

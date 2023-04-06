@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"os"
 	"time"
@@ -96,9 +97,32 @@ type CatalogResponse struct {
 	Name string `json:"name"`
 }
 
+type UserResponse struct {
+	Email     string `json:"email"`
+	Firstname string `json:"firstName"`
+	Lastname  string `json:"lastName"`
+}
+
 var tmpl = template.Must(template.New("").Parse(emails.OrderPlacedEmail))
 
 func (s *OrderService) SendPurchasedEmail(order *models.Order) error {
+	if (order.Email == "" || order.Name == "") && order.UserId != uuid.Nil {
+		// get the email from the user service
+		uri := fmt.Sprintf("%s/api/v1/users/%s", os.Getenv("USER_SERVICE_BASE_URL"), order.UserId)
+		body, err := utils.HttpGet(uri)
+		if err != nil {
+			return err
+		}
+
+		var user UserResponse
+		if err := json.NewDecoder(body).Decode(&user); err != nil {
+			return err
+		}
+
+		order.Email = user.Email
+		order.Name = fmt.Sprintf("%s %s", user.Firstname, user.Lastname)
+	}
+
 	purchaseEmail := emails.OrderPlaced{Name: order.Name, ID: order.ID.Hex(), Address: order.Address}
 	for _, item := range order.Items {
 		uri := fmt.Sprintf("%s/api/v1/catalog/%s", os.Getenv("CATALOG_SERVICE_BASE_URL"), item.CatalogId)
@@ -150,8 +174,14 @@ func (s *OrderService) SendPurchasedEmail(order *models.Order) error {
 	}
 
 	if res.StatusCode >= 400 {
-		return err
+		defer res.Body.Close()
+
+		body, err := io.ReadAll(res.Body)
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf(string(body))
 	}
 
-	return err
+	return nil
 }
