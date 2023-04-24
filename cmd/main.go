@@ -141,11 +141,11 @@ func main() {
 		}
 	}()
 
-	logger.Info("waiting for orders")
-
 	if err := server.Start(); err != nil {
 		logger.Sugar().Fatalf("error starting web server: %v", err)
 	}
+
+	logger.Info("waiting for orders")
 
 	<-forever
 }
