@@ -133,19 +133,18 @@ func main() {
 			}
 
 			logger.Sugar().Infof("order :%v", order)
-
-			if err := d.Ack(false); err != nil {
-				logger.Sugar().Errorf("error triggering acknowledgement: %v", err)
-				continue
-			}
 		}
 	}()
 
-	if err := server.Start(); err != nil {
-		logger.Sugar().Fatalf("error starting web server: %v", err)
-	}
+	go startHTTPServer(logger, server)
 
 	logger.Info("waiting for orders")
 
 	<-forever
+}
+
+func startHTTPServer(logger *zap.Logger, server *handlers.Server) {
+	if err := server.Start(); err != nil {
+		logger.Sugar().Fatalf("error starting web server: %v", err)
+	}
 }
