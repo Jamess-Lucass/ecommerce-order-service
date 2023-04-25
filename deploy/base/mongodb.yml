@@ -1,0 +1,22 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: ecommerce-order-service-mongodb
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "6.0.5"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: postgres
+      db: admin
+      passwordSecretRef:
+        name: ecommerce-order-service-mongodb-credentials
+      roles:
+        - name: readWrite
+          db: order
+      scramCredentialsSecretName: my-scram
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
