@@ -9,7 +9,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
 	github.com/rabbitmq/amqp091-go v1.8.1
-	github.com/valyala/fasthttp v1.47.0
+	github.com/valyala/fasthttp v1.48.0
 	go.mongodb.org/mongo-driver v1.11.6
 	go.uber.org/zap v1.25.0
 )
