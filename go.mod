@@ -10,7 +10,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/valyala/fasthttp v1.48.0
-	go.mongodb.org/mongo-driver v1.11.6
+	go.mongodb.org/mongo-driver v1.12.1
 	go.uber.org/zap v1.25.0
 )
 
@@ -27,7 +27,6 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
