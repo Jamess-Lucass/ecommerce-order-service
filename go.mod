@@ -7,7 +7,7 @@ require (
 	github.com/gofiber/contrib/fiberzap v1.0.2
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/valyala/fasthttp v1.48.0
 	go.mongodb.org/mongo-driver v1.12.1
