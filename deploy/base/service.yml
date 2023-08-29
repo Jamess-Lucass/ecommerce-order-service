@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: ecommerce-order-service-service
+  name: ecommerce-order-service
 spec:
   selector:
-    app: ecommerce-order-service-deployment
+    app: ecommerce-order-service
   ports:
     - protocol: TCP
       targetPort: 8080

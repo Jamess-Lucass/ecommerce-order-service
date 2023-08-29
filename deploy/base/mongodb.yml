@@ -10,10 +10,10 @@ spec:
     authentication:
       modes: ["SCRAM"]
   users:
-    - name: postgres
+    - name: mongodb
       db: admin
       passwordSecretRef:
-        name: ecommerce-order-service-mongodb-credentials
+        name: ecommerce-order-service
       roles:
         - name: readWrite
           db: order

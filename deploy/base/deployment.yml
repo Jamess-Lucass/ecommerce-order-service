@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ecommerce-order-service-deployment
+  name: ecommerce-order-service
   labels:
-    app: ecommerce-order-service-deployment
+    app: ecommerce-order-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ecommerce-order-service-deployment
+      app: ecommerce-order-service
   template:
     metadata:
       labels:
-        app: ecommerce-order-service-deployment
+        app: ecommerce-order-service
     spec:
       containers:
-        - name: ecommerce-order-service-container
+        - name: ecommerce-order-service
           image: ghcr.io/jamess-lucass/ecommerce-order-service:latest
           imagePullPolicy: Always
           ports:

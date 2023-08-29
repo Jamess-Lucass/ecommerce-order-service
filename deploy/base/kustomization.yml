@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: default
 
 resources:
-  - database-password-secret.yml
+  - external-secret.yml
   - deployment.yml
   - service.yml
   - ingress.yml

@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ecommerce-order-service-deployment
+  name: ecommerce-order-service
 spec:
   template:
     spec:
       containers:
-        - name: ecommerce-order-service-container
+        - name: ecommerce-order-service
           env:
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: jwt-secret
-                  key: value
+                  name: ecommerce-order-service
+                  key: jwt_secret
             - name: DB_HOST
               value: "ecommerce-order-service-mongodb-svc"
             - name: DB_PORT
               value: "27017"
             - name: DB_USERNAME
-              value: postgres
+              value: mongodb
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: ecommerce-order-service-mongodb-credentials
+                  name: ecommerce-order-service
                   key: password
             - name: RABBITMQ_HOST
               value: "rabbit-mq.default.svc"
@@ -39,8 +39,8 @@ spec:
                   name: rabbit-mq-default-user
                   key: password
             - name: CATALOG_SERVICE_BASE_URL
-              value: "http://ecommerce-catalog-service-service.default.svc:80"
+              value: "http://ecommerce-catalog-service.default.svc:80"
             - name: USER_SERVICE_BASE_URL
-              value: "http://ecommerce-user-service-service.default.svc:80"
+              value: "http://ecommerce-user-service.default.svc:80"
             - name: EMAIL_SERVICE_BASE_URL
-              value: "http://ecommerce-email-service-service.default.svc:80"
+              value: "http://ecommerce-email-service.default.svc:80"

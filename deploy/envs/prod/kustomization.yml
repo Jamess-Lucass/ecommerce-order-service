@@ -13,4 +13,4 @@ patches:
   - path: patches/deployment.yml
     target:
       kind: Deployment
-      name: ecommerce-order-service-deployment
+      name: ecommerce-order-service
