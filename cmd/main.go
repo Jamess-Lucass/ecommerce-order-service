@@ -31,9 +31,10 @@ func main() {
 
 	db := database.Connect(logger)
 
+	healthService := services.NewHealthService(db)
 	orderService := services.NewOrderService(db)
 
-	server := handlers.NewServer(logger, orderService)
+	server := handlers.NewServer(logger, healthService, orderService)
 
 	// Rabbit MQ
 	user := os.Getenv("RABBITMQ_USERNAME")

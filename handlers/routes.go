@@ -30,6 +30,8 @@ func (s *Server) Start() error {
 		Logger: s.logger,
 	}))
 
+	f.Get("/api/healthz", s.Healthz)
+
 	f.Get("/api/v1/orders", middleware.JWT(), s.GetOrders)
 	f.Get("/api/v1/orders/:id", middleware.JWT(), s.GetOrder)
 
