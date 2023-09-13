@@ -37,7 +37,7 @@ func Connect(log *zap.Logger) *mongo.Database {
 
 	err = client.Ping(ctx, nil)
 	if err != nil {
-		log.Sugar().Fatalf("error pinging redis database: %v", err)
+		log.Sugar().Fatalf("error pinging mongoDB: %v", err)
 	}
 
 	return client.Database("order")
