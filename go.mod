@@ -11,7 +11,7 @@ require (
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/valyala/fasthttp v1.48.0
 	go.mongodb.org/mongo-driver v1.12.1
-	go.uber.org/zap v1.25.0
+	go.uber.org/zap v1.26.0
 )
 
 require (
